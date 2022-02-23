@@ -22,6 +22,7 @@ ht_t* ht_new(); // allocate a new hashtable
 void ht_set(ht_t* ht, key_t key, val_t val); // set a key and val pair
 val_t ht_get(ht_t* ht, key_t key); // get a value based on key
 bool ht_del(ht_t* ht, key_t key); // remove a key value pair from the table
+bool ht_contains(ht_t* ht, key_t key); // check if table contains a key
 void ht_print(ht_t* ht); // print an entire table
 void ht_free(ht_t* ht); // free the memory
 

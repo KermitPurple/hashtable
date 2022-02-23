@@ -21,9 +21,8 @@ int main(){
     ht_set(ht, "a", "a");
     ht_set(ht, "b", "b");
     ht_set(ht, "c", "c");
-    puts(ht_get(ht, "name8"));
     ht_print(ht);
-    puts("");
+    puts(ht_get(ht, "name8"));
     ht_del(ht, "a");
     ht_del(ht, "b");
     ht_del(ht, "c");

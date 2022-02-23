@@ -85,9 +85,23 @@ bool ht_del(ht_t* ht, key_t key){
     entry_t* curr = ht->entries[index];
     while(curr != NULL){
         if(strcmp(key, curr->key) == 0){
-            curr->key = ht->entries[index]->key;
-            curr->val = ht->entries[index]->val;
-            ht->entries[index] = ht->entries[index]->next;
+            entry_t* to_remove = ht->entries[index];
+            curr->key = to_remove->key;
+            curr->val = to_remove->val;
+            ht->entries[index] = to_remove->next;
+            entry_free(to_remove, false);
+            return true;
+        }
+        curr = curr->next;
+    }
+    return false;
+}
+
+bool ht_contains(ht_t* ht, key_t key){
+    unsigned index = hash(key);
+    entry_t* curr = ht->entries[index];
+    while(curr != NULL){
+        if(strcmp(key, curr->key) == 0){
             return true;
         }
         curr = curr->next;
