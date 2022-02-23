@@ -6,6 +6,8 @@
 static unsigned hash(key_t key){
     size_t len = strlen(key);
     unsigned result = 0;
+    // djb2
+    // http://www.cse.yorku.ca/~oz/hash.html
     for(int i = 0; i < len; i++){
         result = result * 33 + key[i];
     }
