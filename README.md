@@ -1,6 +1,6 @@
 # c hashtable
 
-stb-type header library
+A hashtable datatype written in c. Heavily influenced by references.
 
 ### Referenced
 - [Engineer Man](https://www.youtube.com/watch?v=wg8hZxMRwcw)
