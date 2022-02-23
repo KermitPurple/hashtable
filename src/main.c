@@ -7,29 +7,28 @@ int main(){
         fputs("Couldn't allocate hash table", stderr);
         return 1;
     }
-    ht_add(ht, "name1", "Shane");
-    ht_add(ht, "name2", "Sam");
-    ht_add(ht, "name3", "Patrick");
-    ht_add(ht, "name3", "Pj");
-    ht_add(ht, "name4", "Test");
-    ht_add(ht, "name5", "Weird name");
-    ht_add(ht, "name6", "Shawn");
-    ht_add(ht, "name7", "Loay Alnaji");
-    ht_add(ht, "name8", "McDonough");
-    ht_add(ht, "name9", "More name");
-    ht_add(ht, "name10", "McDonough");
-    ht_add(ht, "a", "a");
-    ht_add(ht, "b", "b");
-    ht_add(ht, "c", "c");
-    for(int i = 0; i < TABLE_SIZE; i++){
-        printf("ht->entries[%d] ", i);
-        entry_t* curr = ht->entries[i];
-        while(curr != NULL){
-            printf("%s=%s -> ", curr->key, curr->val);
-            curr = curr->next;
-        }
-        printf("NULL\n");
-    }
+    ht_set(ht, "name1", "Shane");
+    ht_set(ht, "name2", "Sam");
+    ht_set(ht, "name3", "Patrick");
+    ht_set(ht, "name3", "Pj");
+    ht_set(ht, "name4", "Test");
+    ht_set(ht, "name5", "Weird name");
+    ht_set(ht, "name6", "Shawn");
+    ht_set(ht, "name7", "Loay Alnaji");
+    ht_set(ht, "name8", "McDonough");
+    ht_set(ht, "name9", "More name");
+    ht_set(ht, "name10", "McDonough");
+    ht_set(ht, "a", "a");
+    ht_set(ht, "b", "b");
+    ht_set(ht, "c", "c");
+    puts(ht_get(ht, "name8"));
+    ht_print(ht);
+    puts("");
+    ht_del(ht, "a");
+    ht_del(ht, "b");
+    ht_del(ht, "c");
+    ht_del(ht, "name10");
+    ht_print(ht);
     ht_free(ht);
     return 0;
 }

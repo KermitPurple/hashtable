@@ -1,3 +1,4 @@
+#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include"hashtable.h"
@@ -23,11 +24,13 @@ static entry_t* entry_new(key_t key, val_t val){
     return entry;
 }
 
-static void entry_free(entry_t* entry){
+static void entry_free(entry_t* entry, bool recursive){
     if(entry == NULL){
         return;
     }
-    entry_free(entry->next);
+    if(recursive){
+        entry_free(entry->next, recursive);
+    }
     free(entry);
 }
 
@@ -46,7 +49,7 @@ ht_t* ht_new(){
     return ht;
 }
 
-void ht_add(ht_t* ht, key_t key, val_t val){
+void ht_set(ht_t* ht, key_t key, val_t val){
     unsigned index = hash(key);
     if(ht->entries[index] == NULL){
         ht->entries[index] = entry_new(key, val);
@@ -65,9 +68,48 @@ void ht_add(ht_t* ht, key_t key, val_t val){
     }
 }
 
+val_t ht_get(ht_t* ht, key_t key){
+    unsigned index = hash(key);
+    entry_t* curr = ht->entries[index];
+    while(curr != NULL){
+        if(strcmp(key, curr->key) == 0){
+            return curr->val;
+        }
+        curr = curr->next;
+    }
+    return NULL;
+}
+
+bool ht_del(ht_t* ht, key_t key){
+    unsigned index = hash(key);
+    entry_t* curr = ht->entries[index];
+    while(curr != NULL){
+        if(strcmp(key, curr->key) == 0){
+            curr->key = ht->entries[index]->key;
+            curr->val = ht->entries[index]->val;
+            ht->entries[index] = ht->entries[index]->next;
+            return true;
+        }
+        curr = curr->next;
+    }
+    return false;
+}
+
+void ht_print(ht_t* ht){
+    for(int i = 0; i < TABLE_SIZE; i++){
+        printf("ht->entries[%d] ", i);
+        entry_t* curr = ht->entries[i];
+        while(curr != NULL){
+            printf("%s=%s -> ", curr->key, curr->val);
+            curr = curr->next;
+        }
+        printf("NULL\n");
+    }
+}
+
 void ht_free(ht_t* ht){
     for(int i = 0; i < TABLE_SIZE; i++){
-        entry_free(ht->entries[i]);
+        entry_free(ht->entries[i], true);
     }
     free(ht->entries);
     free(ht);
