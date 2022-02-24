@@ -43,6 +43,7 @@ ht_t* ht_new(){
     }
     ht->entries = malloc(sizeof(entry_t*) * TABLE_SIZE);
     if(ht->entries == NULL){
+        free(ht);
         return NULL;
     }
     for(int i = 0; i < TABLE_SIZE; i++){
